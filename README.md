@@ -17,6 +17,7 @@
 ---
 
 ## 📊 Dashboard Preview
+
 ![Dashboard Overview](assets/dashboard_main_page.png)
 ![Customer Details](assets/dashboard_customer_detail.png)
 
@@ -49,7 +50,7 @@
 
 ## 📂 Project Structure
 
-```text
+```bash
 rfm-clv-dashboard/
 ├── notebooks/       # Jupyter Notebooks (RFM, CLV calculations, data cleaning)
 ├── data/            # OnlineRetail.xlsx
@@ -58,7 +59,7 @@ rfm-clv-dashboard/
 ├── README.md        # Project documentation
 ├── .gitignore       # Ignore unnecessary files
 └── LICENSE          # MIT License
-
+```
 
 ---
 
@@ -77,9 +78,8 @@ rfm-clv-dashboard/
 
 ## ⚙️ How to Use
 1. Clone the repository:  
-```bash
 git clone  https://github.com/FarnazOmidvari/rfm-clv-dashboard
-```
+
 2. Open the Power BI dashboard (RFM_CLV_dashboard.pbix file) in Power BI Desktop to explore the dashboard interactively.
 3. Open the Jupyter Notebooks in notebooks/ for data processing.
 4. Replace data/OnlineRetail.xlsx with your own dataset (if available).
