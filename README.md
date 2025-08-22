@@ -57,7 +57,7 @@ rfm-clv-dashboard/
 ├── powerbi/         # Power BI (RFM_CLV_dashboard.pbix) file
 ├── README.md        # Project documentation
 ├── .gitignore       # Ignore unnecessary files
-└── LICENSE          # MIT License```
+└── LICENSE          # MIT License
 
 
 ---
