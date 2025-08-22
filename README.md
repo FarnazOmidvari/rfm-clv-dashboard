@@ -92,7 +92,9 @@ git clone  https://github.com/FarnazOmidvari/rfm-clv-dashboard
 🚧 Future Improvements
 
 🔹 Deploy dashboard online (Power BI Service / Streamlit).
+
 🔹 Add predictive models for churn & CLV forecasting.
+
 🔹 Automate ETL pipeline with Airflow.
 
 ---
