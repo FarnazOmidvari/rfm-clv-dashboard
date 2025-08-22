@@ -50,7 +50,7 @@
 
 ## 📂 Project Structure
 
-```bash
+```text
 rfm-clv-dashboard/
 ├── notebooks/       # Jupyter Notebooks (RFM, CLV calculations, data cleaning)
 ├── data/            # OnlineRetail.xlsx
@@ -77,8 +77,10 @@ rfm-clv-dashboard/
 ---
 
 ## ⚙️ How to Use
-1. Clone the repository:  
+1. Clone the repository:
+```bash
 git clone  https://github.com/FarnazOmidvari/rfm-clv-dashboard
+```
 
 2. Open the Power BI dashboard (RFM_CLV_dashboard.pbix file) in Power BI Desktop to explore the dashboard interactively.
 3. Open the Jupyter Notebooks in notebooks/ for data processing.
