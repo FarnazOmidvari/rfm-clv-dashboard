@@ -46,16 +46,19 @@
 
 ---
 
-```markdown
+
 ## 📂 Project Structure
+
+```text
 rfm-clv-dashboard/
-├── notebooks/ # Jupyter Notebooks (RFM, CLV calculations, data cleaning)
-├── data/ # OnlineRetail.xlsx
-├── assets/ # Dashboard screenshots
-├── powerbi/ # Power BI (RFM_CLV_dashboard.pbix) file
-├── README.md # Project documentation
-├── .gitignore # Ignore unnecessary files
-└── LICENSE # MIT License```
+├── notebooks/       # Jupyter Notebooks (RFM, CLV calculations, data cleaning)
+├── data/            # OnlineRetail.xlsx
+├── assets/          # Dashboard screenshots
+├── powerbi/         # Power BI (RFM_CLV_dashboard.pbix) file
+├── README.md        # Project documentation
+├── .gitignore       # Ignore unnecessary files
+└── LICENSE          # MIT License```
+
 
 ---
 
