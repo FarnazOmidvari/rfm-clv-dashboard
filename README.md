@@ -46,6 +46,7 @@
 
 ---
 
+```markdown
 ## 📂 Project Structure
 rfm-clv-dashboard/
 ├── notebooks/ # Jupyter Notebooks (RFM, CLV calculations, data cleaning)
@@ -54,7 +55,7 @@ rfm-clv-dashboard/
 ├── powerbi/ # Power BI (RFM_CLV_dashboard.pbix) file
 ├── README.md # Project documentation
 ├── .gitignore # Ignore unnecessary files
-└── LICENSE # MIT License
+└── LICENSE # MIT License```
 
 ---
 
@@ -86,7 +87,9 @@ git clone  https://github.com/FarnazOmidvari/rfm-clv-dashboard
 🚧 Future Improvements
 
 🔹 Deploy dashboard online (Power BI Service / Streamlit).
+
 🔹 Add predictive models for churn & CLV forecasting.
+
 🔹 Automate ETL pipeline with Airflow.
 
 ---
