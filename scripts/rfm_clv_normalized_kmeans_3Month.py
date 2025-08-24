@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[52]:
+# In[92]:
 
 
 import pandas as pd
@@ -16,71 +16,71 @@ import seaborn as sbn
 
 # ## Read CSV File
 
-# In[2]:
+# In[93]:
 
 
 df = pd.read_csv('../exports/online_retail_cleaningdata.csv')
 
 
-# In[3]:
+# In[94]:
 
 
 df.head()
 
 
-# In[4]:
+# In[95]:
 
 
 df.info()
 
 
-# In[5]:
+# In[96]:
 
 
 df['date'] = pd.to_datetime(df['date'])
 
 
-# In[6]:
+# In[97]:
 
 
 df.info()
 
 
-# In[7]:
+# In[98]:
 
 
 last_date = df['date'].max()
 last_date
 
 
-# In[9]:
+# In[99]:
 
 
 first_date = df['date'].min()
 first_date
 
 
-# In[10]:
+# In[100]:
 
 
 three_months_ago = last_date - pd.DateOffset(months=3)
 three_months_ago
 
 
-# In[11]:
+# In[101]:
 
 
 df_last_3month = df[df['date'] >= three_months_ago]
 df_last_3month
 
 
-# In[13]:
+# In[ ]:
 
 
 
 
 
-# In[12]:
+# In[102]:
 
 
 rfm_last_3month = (df_last_3month.groupby('customer_id').agg(
@@ -89,7 +89,7 @@ rfm_last_3month = (df_last_3month.groupby('customer_id').agg(
                                         monetary = ('sales' , 'sum')).reset_index())
 
 
-# In[13]:
+# In[103]:
 
 
 rfm_last_3month
@@ -101,14 +101,14 @@ rfm_last_3month
 # **AOV (Average Order Value)**
 # 
 
-# In[14]:
+# In[104]:
 
 
 rfm_last_3month['aov'] = (rfm_last_3month['monetary'] / rfm_last_3month['frequency']).clip(lower=1)
 rfm_last_3month
 
 
-# In[15]:
+# In[105]:
 
 
 rfm_last_3month['purchase_freq'] = rfm_last_3month['frequency']
@@ -117,7 +117,7 @@ rfm_last_3month
 
 # ## Lifespan per Months
 
-# In[16]:
+# In[106]:
 
 
 rfm_last_3month['lifespn_per_month'] = (rfm_last_3month['recency'] / 30).clip(lower=1)
@@ -126,26 +126,26 @@ rfm_last_3month
 
 # ## Lifespan = The Mean of All Recencies
 
-# In[17]:
+# In[107]:
 
 
 avg_recency = rfm_last_3month['recency'].mean()
 
 
-# In[18]:
+# In[108]:
 
 
 avg_lifespn = avg_recency / 30
 
 
-# In[19]:
+# In[109]:
 
 
 rfm_last_3month['lifespn_avg'] = avg_lifespn
 rfm_last_3month
 
 
-# In[20]:
+# In[110]:
 
 
 rfm_last_3month['clv_lifesp_m'] = (
@@ -155,7 +155,7 @@ rfm_last_3month['clv_lifesp_m'] = (
 )
 
 
-# In[21]:
+# In[111]:
 
 
 rfm_last_3month['clv_lifesp_avg'] = (
@@ -165,25 +165,13 @@ rfm_last_3month['clv_lifesp_avg'] = (
 )
 
 
-# In[22]:
+# In[112]:
 
 
 rfm_last_3month
 
 
-# In[23]:
-
-
-rfm_last_3month.to_csv('../exports/rfm_clv_3month_RealData.csv')
-
-
-# In[24]:
-
-
-rfm_last_3month.to_excel('../exports/rfm_clv_3month_RealData.xlsx')
-
-
-# In[25]:
+# In[117]:
 
 
 plt.figure(figsize=(18,8))
@@ -238,13 +226,13 @@ plt.show()
 
 # ## Normalization,Standardization
 
-# In[26]:
+# In[118]:
 
 
 relevant_cols = ['recency' , 'frequency' , 'monetary' , 'clv_lifesp_m' , 'clv_lifesp_avg']
 
 
-# In[27]:
+# In[119]:
 
 
 rfm_clv = rfm_last_3month[relevant_cols]
@@ -253,20 +241,20 @@ rfm_clv.head()
 
 # ### MinMax Normalization
 
-# In[28]:
+# In[120]:
 
 
 scaler1 = pp.MinMaxScaler()
 minmax_sclr = scaler1.fit_transform(rfm_clv)
 
 
-# In[29]:
+# In[121]:
 
 
 minmax_sclr
 
 
-# In[30]:
+# In[122]:
 
 
 # Array to DataFrame
@@ -275,7 +263,7 @@ minmax_df = pd.DataFrame(minmax_sclr, columns=relevant_cols)
 minmax_df.head()
 
 
-# In[31]:
+# In[123]:
 
 
 plt.figure(figsize=(18,8))
@@ -330,20 +318,20 @@ plt.show()
 
 # ### Standard Normalization
 
-# In[32]:
+# In[124]:
 
 
 scaler2 = pp.StandardScaler()
 std_sclr = scaler2.fit_transform(rfm_clv)
 
 
-# In[33]:
+# In[125]:
 
 
 std_sclr
 
 
-# In[34]:
+# In[126]:
 
 
 # Array to DataFrame
@@ -352,7 +340,7 @@ std_df = pd.DataFrame(std_sclr , columns=relevant_cols)
 std_df.head()
 
 
-# In[35]:
+# In[127]:
 
 
 plt.figure(figsize=(18,8))
@@ -407,20 +395,20 @@ plt.show()
 
 # ### Robust Normalization
 
-# In[36]:
+# In[128]:
 
 
 scaler3 = pp.RobustScaler()
 robust_sclr = scaler3.fit_transform(rfm_clv)
 
 
-# In[37]:
+# In[129]:
 
 
 robust_sclr
 
 
-# In[38]:
+# In[130]:
 
 
 # Array to DataFrame
@@ -429,7 +417,7 @@ robust_df = pd.DataFrame(robust_sclr , columns=relevant_cols)
 robust_df.head()
 
 
-# In[39]:
+# In[131]:
 
 
 plt.figure(figsize=(18,8))
@@ -484,7 +472,7 @@ plt.show()
 
 # ## Clustering - KMeans - ElbowPlot
 
-# In[40]:
+# In[132]:
 
 
 def find_best_clusters(df, maximum_K):
@@ -504,7 +492,7 @@ def find_best_clusters(df, maximum_K):
     return clusters_centers, k_values
 
 
-# In[41]:
+# In[133]:
 
 
 def generate_elbow_plot(clusters_centers, k_values):
@@ -517,7 +505,7 @@ def generate_elbow_plot(clusters_centers, k_values):
     plt.show()
 
 
-# In[42]:
+# In[134]:
 
 
 clusters_centers, k_values = find_best_clusters(std_sclr, 18)
@@ -525,29 +513,28 @@ clusters_centers, k_values = find_best_clusters(std_sclr, 18)
 generate_elbow_plot(clusters_centers, k_values)
 
 
-# In[43]:
+# In[135]:
 
 
 kmeans_model = KMeans(n_clusters = 5)
 kmeans_model.fit(std_sclr)
 
 
-# In[44]:
+# In[136]:
 
 
 std_df["clusters"] = kmeans_model.labels_
 std_df.head()
 
 
-# In[50]:
+# In[138]:
 
 
-rfm_clv = rfm_clv.copy()
-rfm_clv["clusters"] = kmeans_model.labels_
-rfm_clv.head()
+rfm_last_3month['clusters'] = kmeans_model.labels_
+rfm_last_3month
 
 
-# In[45]:
+# In[139]:
 
 
 plt.figure(figsize=(18,8))
@@ -600,13 +587,13 @@ plt.tight_layout()
 plt.show()
 
 
-# In[53]:
+# In[141]:
 
 
 fig, axes = plt.subplots(1, 2, figsize=(14,6))  # 1 ردیف، 2 ستون
 
-sbn.stripplot(x='clusters', y='recency' , data = rfm_clv ,  ax=axes[0])
-axes[0].set_title("Recency by Clusters - rfm_clv")
+sbn.stripplot(x='clusters', y='recency' , data = rfm_last_3month ,  ax=axes[0])
+axes[0].set_title("Recency by Clusters - rfm_last_3month")
 
 
 sbn.stripplot(x='clusters', y='recency' , data = std_df ,  ax=axes[1])
@@ -617,13 +604,13 @@ plt.tight_layout()
 plt.show()
 
 
-# In[61]:
+# In[142]:
 
 
 fig, axes = plt.subplots(1, 2, figsize=(14,6))  # 1 ردیف، 2 ستون
 
-sbn.stripplot(x='clusters', y='frequency' , data = rfm_clv ,  ax=axes[0])
-axes[0].set_title("Recency by Frequency - rfm_clv")
+sbn.stripplot(x='clusters', y='frequency' , data = rfm_last_3month ,  ax=axes[0])
+axes[0].set_title("Recency by Frequency - rfm_last_3month")
 
 
 sbn.stripplot(x='clusters', y='frequency' , data = std_df ,  ax=axes[1])
@@ -634,13 +621,13 @@ plt.tight_layout()
 plt.show()
 
 
-# In[62]:
+# In[143]:
 
 
 fig, axes = plt.subplots(1, 2, figsize=(14,6))  # 1 ردیف، 2 ستون
 
-sbn.stripplot(x='clusters', y='monetary' , data = rfm_clv ,  ax=axes[0])
-axes[0].set_title("Recency by Monetary - rfm_clv")
+sbn.stripplot(x='clusters', y='monetary' , data = rfm_last_3month ,  ax=axes[0])
+axes[0].set_title("Recency by Monetary - rfm_last_3month")
 
 
 sbn.stripplot(x='clusters', y='monetary' , data = std_df ,  ax=axes[1])
@@ -651,12 +638,12 @@ plt.tight_layout()
 plt.show()
 
 
-# In[66]:
+# In[144]:
 
 
 fig, axes = plt.subplots(1, 2, figsize=(14,6))  # 1 ردیف، 2 ستون
 
-sbn.stripplot(x='clusters', y='clv_lifesp_avg' , data = rfm_clv ,  ax=axes[0])
+sbn.stripplot(x='clusters', y='clv_lifesp_avg' , data = rfm_last_3month ,  ax=axes[0])
 axes[0].set_title("Recency by CLV - rfm_clv")
 
 
@@ -668,14 +655,14 @@ plt.tight_layout()
 plt.show()
 
 
-# In[54]:
+# In[145]:
 
 
 std_df['customer_id'] = rfm_last_3month['customer_id'].values
 std_df.head()
 
 
-# In[55]:
+# In[146]:
 
 
 clusters_mean = std_df.groupby('clusters').agg(
@@ -689,37 +676,61 @@ clusters_mean = std_df.groupby('clusters').agg(
 ).reset_index()
 
 
-# In[56]:
+# In[147]:
 
 
 clusters_mean
 
 
-# In[57]:
+# In[85]:
 
 
-std_df.to_csv('RFM_CLV&RFM_3Month.csv')
+#rfm_clv.to_excel('../exports/rfm_clv_3month_realdata.xlsx')
 
 
-# In[58]:
+# In[86]:
 
 
-std_df.to_excel('RFM_CLV&RFM_3Month.xlsx')
+#rfm_clv.to_csv('../exports/rfm_clv_3month_realdata.csv')
 
 
-# In[59]:
+# In[148]:
 
 
-clusters_mean.to_csv('RFM_CLV&RFM_3Month_mean.csv')
+std_df.to_csv('../exports/rfm_clv_normalized_kmeans_3month.csv')
 
 
-# In[60]:
+# In[149]:
 
 
-clusters_mean.to_excel('RFM_CLV&RFM_3Month_mean.xlsx')
+std_df.to_excel('../exports/rfm_clv_normalized_kmeans_3month.xlsx')
 
 
-# In[56]:
+# In[150]:
+
+
+clusters_mean.to_csv('../exports/rfm_clv_3month_mean.csv')
+
+
+# In[151]:
+
+
+clusters_mean.to_excel('../exports/rfm_clv_3month_mean.xlsx')
+
+
+# In[152]:
+
+
+rfm_last_3month.to_csv('../exports/rfm_clv_3month_realdata.csv')
+
+
+# In[153]:
+
+
+rfm_last_3month.to_excel('../exports/rfm_clv_3month_realdata.xlsx')
+
+
+# In[ ]:
 
 
 

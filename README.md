@@ -25,25 +25,34 @@
 
 ## 📌 Cluster Insightsٰ
 
-| Cluster | Emoji | Features | CLV | Analysis |
-|---------|-------|----------|-----|---------|
-| 0 | 🔴 | High Recency (not purchased recently), very low Frequency & Monetary | Very low | Almost lost customers; need reactivation campaigns |
-| 1 | 🟡 | Medium Recency, low Frequency & Monetary | Low | Still active but generate limited value |
-| 2 | 🟢 | Very low Recency (recent purchase), very high Frequency & Monetary | 21.2 | Most valuable customers |
-| 3 | 🔵 | Medium Recency & Frequency | 0.8 | Potential to become Potential/VIP customers |
-| 4 | 🟣 | Low Recency, Frequency higher than regular, Monetary medium | 5.7 | On the verge of becoming VIP; growth possible with marketing campaigns |
+| Cluster | Emoji | Recency | Frequency | Monetary | CLV | Interpretation |
+|---------|-------|---------|-----------|----------|-----|----------------|
+| 0 | 🟢 | Low (recent purchase) | Above avg | Above avg | 0.86 | **Active Loyal** – valuable repeat customers; maintain engagement |
+| 1 | 🟡 | Medium | Low | Low | -0.14 | **Low-Value Active** – many customers, but low spending; target for upsell/cross-sell |
+| 2 | 👑 | Very Low (very recent) | Very High | Very High | 21.2 | **VIP Champions** – highest value, very few customers; must be retained at all costs |
+| 3 | 🔴 | High (long since last purchase) | Low | Low | -0.20 | **At-Risk / Hibernating** – likely churned; need reactivation campaigns |
+| 4 | 🟣 | Low | High | Medium-High | 5.7 | **High-Value Potential** – on the verge of becoming VIP; nurture with marketing campaigns |
 
 > 💡 **Note:** The table provides a quick visual overview of cluster characteristics and their CLV.
 
 ---
 
 ## 📝 Managerial Summary
+## 📝 Managerial Summary (Updated)
 
-- **🎯 Customer Segmentation:** Differentiates churned, regular, potential, and VIP customers  
-- **💡 Retention Focus:** Churned customers (Cluster 0) require reactivation campaigns  
-- **📈 Growth Opportunities:** Potential (Cluster 4) and Average (Cluster 3) customers can be nurtured to VIP  
-- **💎 High-Value Customers:** VIP customers (Cluster 2) are the primary source of revenue and long-term business value  
-- **📊 Data-Driven Decisions:** Power BI dashboard enables trend monitoring and detailed cluster analysis  
+- **🎯 Customer Segmentation:** Differentiates **At-Risk / Hibernating (Cluster 3 🔴)**, **Low-Value Active (Cluster 1 🟡)**, **Active Loyal (Cluster 0 🟢)**, **High-Value Potential (Cluster 4 🟣)**, and **VIP Champions (Cluster 2 👑)** customers.
+
+- **💡 Retention Focus:** **At-Risk / Hibernating customers (Cluster 3 🔴)** require targeted reactivation campaigns.
+
+- **📈 Growth Opportunities:** **High-Value Potential (Cluster 4 🟣)** and **Low-Value Active (Cluster 1 🟡)** customers can be nurtured toward **VIP status**.
+
+- **💎 High-Value Customers:** **VIP Champions (Cluster 2 👑)** are the primary source of revenue and long-term business value.
+
+- **💚 Loyal Customers:** **Active Loyal (Cluster 0 🟢)** maintain consistent engagement and provide stable revenue streams.
+
+- **📊 Data-Driven Decisions:** Power BI dashboard enables **trend monitoring**, **cluster comparisons**, and **targeted strategy planning**.
+
+Decisions:** Power BI dashboard enables trend monitoring and detailed cluster analysis  
 
 ---
 
@@ -56,6 +65,7 @@ rfm-clv-dashboard/
 ├── data/            # OnlineRetail.xlsx
 ├── assets/          # Dashboard screenshots
 ├── powerbi/         # Power BI (RFM_CLV_dashboard.pbix) file
+├── exports/         # excel and csv exported files
 ├── README.md        # Project documentation
 ├── .gitignore       # Ignore unnecessary files
 └── LICENSE          # MIT License

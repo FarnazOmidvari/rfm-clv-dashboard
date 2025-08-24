@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[25]:
 
 
 import os
@@ -14,19 +14,19 @@ import plotly.express as px
 import seaborn as sbn
 
 
-# In[2]:
+# In[26]:
 
 
 df = pd.read_csv('../exports/online_retail_cleaningdata.csv')
 
 
-# In[3]:
+# In[27]:
 
 
 df.head()
 
 
-# In[4]:
+# In[28]:
 
 
 df.isnull().sum()
@@ -36,20 +36,20 @@ df.isnull().sum()
 
 # ## Recency
 
-# In[5]:
+# In[29]:
 
 
 day = pd.to_datetime("2011-12-10").normalize()
 df['date'] = pd.to_datetime(df['date']).dt.normalize()
 
 
-# In[6]:
+# In[30]:
 
 
 df['date'].max() , df['date'].min()
 
 
-# In[7]:
+# In[31]:
 
 
 recency = df.groupby(['customer_id']).agg({"date": lambda x:((day-x.max()).days)}).reset_index()
@@ -57,7 +57,7 @@ recency = recency.rename(columns={'date': 'recency'})
 recency
 
 
-# In[8]:
+# In[32]:
 
 
 df.customer_id.unique().shape
@@ -65,14 +65,14 @@ df.customer_id.unique().shape
 
 # ## Ferequency (In Two Ways)
 
-# In[9]:
+# In[33]:
 
 
 frequency_1 = df.drop_duplicates(subset ='invoice_id').groupby(['customer_id'])[['invoice_id']].count()
 frequency_1
 
 
-# In[10]:
+# In[34]:
 
 
 frequency = df.groupby(['customer_id'])[['invoice_id']].nunique().reset_index()
@@ -82,7 +82,7 @@ frequency.head()
 
 # ## Monetary
 
-# In[11]:
+# In[35]:
 
 
 monetary = df.groupby(['customer_id'])[['sales']].sum().reset_index()
@@ -92,7 +92,7 @@ monetary.head()
 
 # ## RFM Values
 
-# In[13]:
+# In[36]:
 
 
 rfm_values = recency.merge(frequency, on='customer_id')
@@ -101,13 +101,13 @@ rfm_values = rfm_values.merge(monetary, on='customer_id')
 rfm_values.head()
 
 
-# In[14]:
+# In[37]:
 
 
 rfm_values.isnull().sum()
 
 
-# In[15]:
+# In[38]:
 
 
 rfm_sorted = rfm_values.sort_values('monetary' , ascending=False)
@@ -116,13 +116,13 @@ rfm_sorted.head()
 
 # ## CLV Historical
 
-# In[16]:
+# In[39]:
 
 
 df.head()
 
 
-# In[17]:
+# In[40]:
 
 
 clv_historical = df.groupby('customer_id')[['sales']].sum().reset_index()
@@ -130,27 +130,27 @@ clv_historical.columns = ['customer_id', 'clv_historical']
 clv_historical.sort_values(by = 'clv_historical' , ascending = False)
 
 
-# In[18]:
+# In[41]:
 
 
 rfm_clv = rfm_values.merge(clv_historical , on = 'customer_id' , how = 'left')
 rfm_clv.head()
 
 
-# In[19]:
+# In[42]:
 
 
 relevant_cols = ["recency", "frequency", "monetary" , "clv_historical"]
 rfm_clv_n = rfm_clv[relevant_cols]
 
 
-# In[20]:
+# In[43]:
 
 
 rfm_clv_n.head()
 
 
-# In[21]:
+# In[44]:
 
 
 plt.figure(figsize=(18,8))
@@ -208,22 +208,22 @@ plt.show()
 
 
 
-# In[22]:
+# In[45]:
 
 
 rfm_clv.to_csv('../exports/online_retail_rfm_clv(historical)_realdata.csv')
 
 
-# In[23]:
+# In[46]:
 
 
 rfm_clv.to_excel('../exports/online_retail_rfm_clv(historical)_realdata.xlsx')
 
 
-# In[24]:
+# In[48]:
 
 
-rfm_clv_n
+rfm_clv
 
 
 # In[ ]:

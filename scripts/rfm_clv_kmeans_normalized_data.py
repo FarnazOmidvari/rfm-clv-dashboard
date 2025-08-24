@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[36]:
+# In[77]:
 
 
 import pandas as pd
@@ -14,27 +14,27 @@ import plotly.express as px
 import seaborn as sbn
 
 
-# In[37]:
+# In[78]:
 
 
 rfm_clv = pd.read_csv('../exports/online_retail_rfm_clv(historical)_realdata.csv')
 rfm_clv
 
 
-# In[38]:
+# In[79]:
 
 
 rfm_clv.info()
 
 
-# In[39]:
+# In[80]:
 
 
 relevant_cols = ["recency", "frequency", "monetary" , "clv_historical"]
 rfm_clv_n = rfm_clv[relevant_cols]
 
 
-# In[40]:
+# In[81]:
 
 
 rfm_clv_n.head()
@@ -49,7 +49,7 @@ rfm_clv_n.head()
 # 
 #  # **Normalization,Standardization**
 
-# In[41]:
+# In[82]:
 
 
 import sklearn.preprocessing as pp
@@ -57,7 +57,7 @@ import sklearn.preprocessing as pp
 
 # ## **MinMax Normalization**
 
-# In[42]:
+# In[83]:
 
 
 scaler1 = pp.MinMaxScaler()
@@ -65,13 +65,13 @@ minmax_rfm = scaler1.fit_transform(rfm_clv_n)
 minmax_rfm
 
 
-# In[43]:
+# In[84]:
 
 
 relevant_cols
 
 
-# In[44]:
+# In[85]:
 
 
 # Array → DataFrame
@@ -80,7 +80,7 @@ minmax_df = pd.DataFrame(minmax_rfm, columns=relevant_cols)
 minmax_df.head()
 
 
-# In[45]:
+# In[86]:
 
 
 plt.figure(figsize=(18,8))
@@ -135,7 +135,7 @@ plt.show()
 
 # ## **Standard Normalization**
 
-# In[46]:
+# In[87]:
 
 
 scaler2 = pp.StandardScaler()
@@ -143,7 +143,7 @@ std_rfm = scaler2.fit_transform(rfm_clv_n)
 std_rfm
 
 
-# In[47]:
+# In[88]:
 
 
 # Array → DataFrame
@@ -152,7 +152,7 @@ std_df = pd.DataFrame(std_rfm , columns=relevant_cols)
 std_df.head()
 
 
-# In[48]:
+# In[89]:
 
 
 plt.figure(figsize=(18,8))
@@ -207,7 +207,7 @@ plt.show()
 
 # ## **Robust Normalization**
 
-# In[49]:
+# In[90]:
 
 
 scaler3 = pp.RobustScaler()
@@ -215,7 +215,7 @@ robust_rfm = scaler3.fit_transform(rfm_clv_n)
 robust_rfm
 
 
-# In[50]:
+# In[91]:
 
 
 # Array → DataFrame
@@ -224,7 +224,7 @@ robust_df = pd.DataFrame(robust_rfm , columns = relevant_cols)
 robust_df.head()
 
 
-# In[51]:
+# In[92]:
 
 
 plt.figure(figsize=(18,8))
@@ -279,13 +279,13 @@ plt.show()
 
 # # **Clustering - KMeans - ElbowPlot**
 
-# In[52]:
+# In[93]:
 
 
 from sklearn.cluster import KMeans
 
 
-# In[53]:
+# In[94]:
 
 
 def find_best_clusters(df, maximum_K):
@@ -305,7 +305,7 @@ def find_best_clusters(df, maximum_K):
     return clusters_centers, k_values
 
 
-# In[54]:
+# In[95]:
 
 
 def generate_elbow_plot(clusters_centers, k_values):
@@ -318,7 +318,7 @@ def generate_elbow_plot(clusters_centers, k_values):
     plt.show()
 
 
-# In[55]:
+# In[96]:
 
 
 clusters_centers, k_values = find_best_clusters(std_rfm, 18)
@@ -326,21 +326,21 @@ clusters_centers, k_values = find_best_clusters(std_rfm, 18)
 generate_elbow_plot(clusters_centers, k_values)
 
 
-# In[56]:
+# In[97]:
 
 
 kmeans_model = KMeans(n_clusters = 5)
 kmeans_model.fit(std_rfm)
 
 
-# In[57]:
+# In[98]:
 
 
 std_df["clusters"] = kmeans_model.labels_
 std_df.head()
 
 
-# In[58]:
+# In[99]:
 
 
 plt.figure(figsize=(18,8))
@@ -392,45 +392,45 @@ plt.tight_layout()
 plt.show()
 
 
-# In[59]:
+# In[100]:
 
 
 rfm_clv
 
 
-# In[60]:
+# In[101]:
 
 
 rfm_clv['clusters'] = kmeans_model.labels_
 rfm_clv.head()
 
 
-# In[61]:
+# In[102]:
 
 
 std_df
 
 
-# In[62]:
+# In[103]:
 
 
 std_df['customer_id'] = rfm_clv['customer_id'].values
 std_df
 
 
-# In[63]:
+# In[104]:
 
 
 std_df.to_csv('../exports/rfm_clv_kmeans_normalized_data.csv')
 
 
-# In[64]:
+# In[105]:
 
 
 std_df.to_excel('../exports/rfm_clv_kmeans_normalized_data.xlsx')
 
 
-# In[65]:
+# In[106]:
 
 
 fig, axes = plt.subplots(1, 2, figsize=(14,6))  # 1 ردیف، 2 ستون
@@ -447,7 +447,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[66]:
+# In[107]:
 
 
 fig, axes = plt.subplots(1, 2, figsize=(14,6))  # 1 ردیف، 2 ستون
@@ -464,7 +464,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[67]:
+# In[108]:
 
 
 fig, axes = plt.subplots(1, 2, figsize=(14,6))  # 1 ردیف، 2 ستون
@@ -481,7 +481,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[76]:
+# In[109]:
 
 
 fig, axes = plt.subplots(1, 2, figsize=(14,6))  # 1 ردیف، 2 ستون
@@ -498,7 +498,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[68]:
+# In[110]:
 
 
 cluster_profile = std_df.groupby("clusters").agg({
@@ -512,40 +512,40 @@ cluster_profile = std_df.groupby("clusters").agg({
 cluster_profile
 
 
-# In[69]:
+# In[111]:
 
 
 cluster_profile.to_csv('../exports/rfm_clv_kmeans_normalized_data_mean.csv')
 
 
-# In[70]:
+# In[112]:
 
 
 cluster_profile.to_excel('../exports/rfm_clv_kmeans_normalized_data_mean.xlsx')
 
 
-# In[71]:
+# In[113]:
 
 
 cluster_customers = std_df.groupby("clusters")['customer_id'].apply(list)
 cluster_customers
 
 
-# In[72]:
+# In[114]:
 
 
 cluster_customers.columns = ['clusters', 'customer_id']
 cluster_customers
 
 
-# In[73]:
+# In[115]:
 
 
 cluster_customers_exploded = std_df[['clusters', 'customer_id']].sort_values(by='clusters')
 cluster_customers_exploded
 
 
-# In[74]:
+# In[116]:
 
 
 cluster_customers_exploded[cluster_customers_exploded['clusters']==3]
